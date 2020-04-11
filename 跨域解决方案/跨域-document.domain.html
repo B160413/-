@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>跨域解决方案————document.domain</h1>
+<script>
+    document.domain(mydomain.com);
+    /*因为浏览器时通过document.domain来检查两个页面是否同源，
+    * 故只要设置相同的domain就可以使两个页面共享cookie
+    * 但是此方法仅限于主域相同，而子域不同的跨域*/
+</script>
+</body>
+</html>

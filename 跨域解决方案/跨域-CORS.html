@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<h1>跨域解决方案————CORS</h1>
+<p>
+    <b>普通跨域请求：只服务端设置Access-Control-Allow-Origin即可，前端无须设置，若要带cookie请求：前后端都需要设置。</b><br>
+    <b>需注意的是：由于同源策略的限制，所读取的cookie为跨域请求接口所在域的cookie，而非当前页。如果想实现当前页cookie的写入，可参考下文：七、nginx反向代理中设置proxy_cookie_domain 和 八、NodeJs中间件代理中cookieDomainRewrite参数的设置。</b><br>
+    <b>目前，所有浏览器都支持该功能(IE8+：IE8/9需要使用XDomainRequest对象来支持CORS）)，CORS也已经成为主流的跨域解决方案。</b>
+</p>
+<!--原生ajax-->
+<script>
+    let xhr=new XMLHttpRequest();  //IE8/9用window.XDomainRequest兼容
+    //前端设置是否带cookie
+    xhr.withCredentials=true;
+
+    xhr.open(post,'http://mydomain.com:8080/login',true);
+    xhr.setRequestHeader('ContentType','application/x-www-form-urlencoded');
+    xhr.send('user=admin');
+
+    xhr.onreadystatechange=function() {
+        if(xhr.readyState==4&&xhr.status==200){
+            alert(xhr.responseText)
+        }
+    }
+</script>
+
+<!--JQuery ajax-->
+<script>
+    $.ajax({
+        url:'http://mydomain.com:8080/login',
+        type:'get',
+        data:{},
+        xhrFields:{
+            withCredentials:true
+        },
+        crossDomain:true,
+    });
+</script>
+
+<!--vue-resource-->
+<script>
+    Vue.http.options.credentials=true
+</script>
+
+<!--axios-->
+<script>
+    axios.defaults.withCredentials = true
+</script>
+</body>
+</html>

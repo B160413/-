@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>跨域解决方案————window.postMessage()</h1>
+<script>
+    /*主要针对：1、当前页面与其新打开的窗口的数据传递
+    * 2、页面与嵌套的iframe消息传递
+    * 3、多窗口消息传递*/
+    /*父窗口：test1，子窗口：test2*/
+    let openWindow=window.open('http://test2.com','title');
+    openWindow.postMessage('hello test2','http://test2.com');
+</script>
+</body>
+</html>

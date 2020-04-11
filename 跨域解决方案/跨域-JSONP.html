@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>跨域解决方案————JSONP</h1>
+<!--原生JS-->
+<script src="http://www.mydomain.com:8080/login?callback=address"></script>
+<!--向服务器发出请求（domain.com），请求带有一个callback参数，用来指定回调函数的名字-->
+<script>
+    function address(res) {
+        alert(JSON.stringify(res));
+    }
+</script>
+
+<!--ajax-->
+<script>
+    $.ajax({
+        url:'http://www.mydomain.com:8080/login',
+        type:'get',
+        dataType:'jsonp',
+        jsonpCallback:'address',
+        date:{}
+    });
+</script>
+
+<!--vue.js-->
+<script>
+    this.$http.jsonp('http://www.mydomain.com:8080/login',{
+        params:{},
+        jsonp:'address',
+    }).then((res)=>{
+        console.log(JSON.stringify(res));
+    })
+</script>
+</body>
+</html>
